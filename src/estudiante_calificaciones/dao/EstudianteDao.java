@@ -117,6 +117,8 @@ public class EstudianteDao {
             return estudiante;
         }
     }
+    
+    
     public Integer insert(Estudiantes estudiante){
         
         if(estudiante==null || estudiante.getId()!=null){
@@ -136,6 +138,32 @@ public class EstudianteDao {
             ps.setInt(4, estudiante.getEdad());
             
             Integer filas=ps.executeUpdate();
+            
+            return filas;
+        }catch(SQLException e){
+            e.getMessage();
+            return 0;
+        }
+    }
+    
+    public Integer update(Estudiantes estudiante){
+        
+        if(estudiante==null || estudiante.getId()==null || estudiante.getId()<=0){
+            return 0;
+        }
+        
+        try{
+            Connection conexionBD=conexion.getConexion();
+            String query="UPDATE estudiante SET cedula=?, nombre=?, apellido=?, edad=? WHERE id=?";
+            PreparedStatement ps=conexionBD.prepareStatement(query);
+            
+            ps.setInt(1, estudiante.getCedula());
+            ps.setString(2, estudiante.getNombre());
+            ps.setString(3, estudiante.getApellido());
+            ps.setInt(4, estudiante.getEdad());
+            ps.setInt(6, estudiante.getId());
+            
+            Integer filas=ps.executeUpdate(); //Retornara la cantidad de registro ingresados
             
             return filas;
         }catch(SQLException e){
