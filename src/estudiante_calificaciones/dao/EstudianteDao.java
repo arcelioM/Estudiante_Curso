@@ -168,7 +168,7 @@ public class EstudianteDao {
             ps.setString(2, estudiante.getNombre());
             ps.setString(3, estudiante.getApellido());
             ps.setInt(4, estudiante.getEdad());
-            ps.setInt(6, estudiante.getId());
+            ps.setInt(5, estudiante.getId());
             
             Integer filas=ps.executeUpdate(); //Retornara la cantidad de registro ingresados
             
