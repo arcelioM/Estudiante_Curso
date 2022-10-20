@@ -5,7 +5,7 @@ package estudiante_calificaciones.model;
 public class Materias {
     
     private Integer id;
-    private String name;
+    private String nombre;
 
     public Materias() {
     }
@@ -14,9 +14,9 @@ public class Materias {
         this.id = id;
     }
 
-    public Materias(Integer id, String name) {
+    public Materias(Integer id, String nombre) {
         this.id = id;
-        this.name = name;
+        this.nombre = nombre;
     }
 
     public Integer getId() {
@@ -27,17 +27,17 @@ public class Materias {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     @Override
     public String toString() {
-        return "Materias{" + "id=" + id + ", name=" + name + '}';
+        return "Materias{" + "id=" + id + ", nombre=" + nombre + '}';
     }
     
     
