@@ -20,14 +20,12 @@ public class EstudianteDao {
         
         try{
             
-            ResultSet rs=null;
-            PreparedStatement ps=null;
             Connection conexionBD=this.conexion.getConexion(); //SE CREA LA CONEXION A LA BD
             String query="SELECT * FROM estudiante";
             List<Estudiantes> allEstudiantes=new ArrayList<>();
             
-            ps=conexionBD.prepareStatement(query);
-            rs=ps.executeQuery();
+            PreparedStatement ps=conexionBD.prepareStatement(query);
+            ResultSet rs=ps.executeQuery();
             
             //AGRAGANDO ESTUDIANTE DISPONIBLE A LA LISTA, PARA RETORNAR
             while(rs.next()){
@@ -50,5 +48,41 @@ public class EstudianteDao {
             return null;
         }
 
+    }
+    
+    public Estudiantes listById(Estudiantes estudiante){
+        
+        //VALIDAR SI LOS DATOS SEAN VALIDOS PARA EJECUTAR QUERY, Y ASI EVITAR ERRORES
+        if(estudiante==null || estudiante.getId()==null || estudiante.getId()<=0){
+            return estudiante;
+        }
+        
+        try{
+
+            Connection conexionBD=conexion.getConexion();
+            String query="SELECT * FROM estudiante WHERE id=?";
+            Integer id=estudiante.getId();
+            
+            PreparedStatement ps=conexionBD.prepareStatement(query);
+            ps.setInt(1, id);
+            
+            ResultSet rs=ps.executeQuery();
+            
+            if(rs.next()){
+         
+                estudiante.setCedula(rs.getInt(2));
+                estudiante.setNombre(rs.getString(3));
+                estudiante.setApellido(rs.getString(4));
+                estudiante.setEdad(rs.getInt(5));
+                estudiante.setFechaCreacion(LocalDate.parse(rs.getString(6)));
+                
+            }
+            
+            return estudiante;
+        }catch(SQLException e){
+            e.getMessage();
+            return null;
+        }
+        
     }
 }
