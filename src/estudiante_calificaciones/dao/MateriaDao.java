@@ -75,4 +75,30 @@ public class MateriaDao {
             return materia;
         }
     }
+    
+    public Integer insert(Materias materia){
+        
+        if(materia==null || materia.getId()!=null){
+            return 0;
+        }
+        
+        PreparedStatement ps=null;
+        Connection conexionBD=conexion.getConexion();
+        String query="INSERT INTO materias (nombre) VALUES(?)";
+        
+        try{
+            ps=conexionBD.prepareStatement(query);
+
+            ps.setString(1, materia.getNombre());
+           
+            
+            Integer rowAffected=ps.executeUpdate();
+            
+            return rowAffected;
+        }catch(SQLException e){
+            e.printStackTrace(System.out);
+            return 0;
+        }
+     
+    }
 }
