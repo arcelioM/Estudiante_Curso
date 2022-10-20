@@ -86,6 +86,37 @@ public class EstudianteDao {
         
     }
     
+    public Estudiantes listByCedula(Estudiantes estudiante){
+        
+        if(estudiante==null || estudiante.getCedula()==null || estudiante.getCedula()<=0){
+            return estudiante;
+        }
+
+        try{
+            Connection conexionBD=conexion.getConexion();
+            String query="SELECT * FROM estudiante WHERE cedula=?";
+            Integer cedula=estudiante.getCedula();
+            PreparedStatement ps=conexionBD.prepareStatement(query);
+            ps.setInt(1, cedula);
+            
+            ResultSet rs=ps.executeQuery();
+            
+            if(rs.next()){
+         
+                estudiante.setId(rs.getInt(1));
+                estudiante.setNombre(rs.getString(3));
+                estudiante.setApellido(rs.getString(4));
+                estudiante.setEdad(rs.getInt(5));
+                estudiante.setFechaCreacion(LocalDate.parse(rs.getString(6)));
+                
+            }
+            
+            return estudiante;
+        }catch(SQLException e){
+            e.printStackTrace(System.out);
+            return estudiante;
+        }
+    }
     public Integer insert(Estudiantes estudiante){
         
         if(estudiante==null || estudiante.getId()!=null){
