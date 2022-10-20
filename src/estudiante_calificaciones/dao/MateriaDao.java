@@ -82,23 +82,45 @@ public class MateriaDao {
             return 0;
         }
         
-        PreparedStatement ps=null;
-        Connection conexionBD=conexion.getConexion();
-        String query="INSERT INTO materias (nombre) VALUES(?)";
-        
         try{
-            ps=conexionBD.prepareStatement(query);
+            
+            Connection conexionBD=conexion.getConexion();
+            String query="INSERT INTO materias (nombre) VALUES(?)";
+            PreparedStatement ps=conexionBD.prepareStatement(query);
 
             ps.setString(1, materia.getNombre());
            
             
-            Integer rowAffected=ps.executeUpdate();
+            Integer filas=ps.executeUpdate();
             
-            return rowAffected;
+            return filas;
         }catch(SQLException e){
             e.printStackTrace(System.out);
             return 0;
         }
      
+    }
+    
+    public Integer update(Materias materia){
+        
+        if(materia==null || materia.getId()==null || materia.getId()<=0){
+            return 0;
+        }
+        
+        try{
+            Connection conexionBD=conexion.getConexion();
+            String query="UPDATE materias SET nombre=? WHERE id=?";
+            PreparedStatement ps=conexionBD.prepareStatement(query);
+
+            ps.setString(1, materia.getNombre());
+            ps.setInt(2, materia.getId());
+            
+            Integer filas=ps.executeUpdate();
+            
+            return filas;
+        }catch(SQLException e){
+            e.getMessage();
+            return 0;
+        }
     }
 }
