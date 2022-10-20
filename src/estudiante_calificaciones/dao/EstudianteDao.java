@@ -85,4 +85,31 @@ public class EstudianteDao {
         }
         
     }
+    
+    public Integer insert(Estudiantes estudiante){
+        
+        if(estudiante==null || estudiante.getId()!=null){
+            return 0;
+        }
+        
+        
+        
+        try{
+            Connection conexionBD=conexion.getConexion();
+            String query="INSERT INTO estudiante (cedula,nombre,apellido,edad) VALUES(?,?,?,?)";
+            PreparedStatement ps=conexionBD.prepareStatement(query);
+            
+            ps.setInt(1, estudiante.getCedula());
+            ps.setString(2, estudiante.getNombre());
+            ps.setString(3, estudiante.getApellido());
+            ps.setInt(4, estudiante.getEdad());
+            
+            Integer filas=ps.executeUpdate();
+            
+            return filas;
+        }catch(SQLException e){
+            e.getMessage();
+            return 0;
+        }
+    }
 }
