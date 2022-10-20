@@ -15,7 +15,7 @@ import java.sql.Statement;
 
 public class EstudianteDao {
  
-    private Connections conexion= new Connections();
+    private final Connections conexion= new Connections();
     
     public List<Estudiantes> listAll(){
         

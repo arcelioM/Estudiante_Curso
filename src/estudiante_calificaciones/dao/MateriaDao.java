@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class MateriaDao {
     
-    private Connections conexion= new Connections();
+    private final Connections conexion= new Connections();
     
     public List<Materias> listAll(){
         
@@ -22,7 +22,7 @@ public class MateriaDao {
             Connection conexionBD=conexion.getConexion();
             
             //EJECUTAR QUERY
-            String query="SELECT * FROM calificaciones";
+            String query="SELECT * FROM materias";
             PreparedStatement ps=conexionBD.prepareStatement(query);
             ResultSet rs=ps.executeQuery();
             
@@ -42,6 +42,37 @@ public class MateriaDao {
         }catch(SQLException e){
             e.getMessage();
             return null;
+        }
+    }
+    
+    
+    
+    public Materias listById(Materias materia){
+        
+        if(materia==null || materia.getId()==null || materia.getId()<=0){
+            return materia;
+        }
+
+        Connection conexionBD=conexion.getConexion();
+        String query="SELECT nombre FROM materias WHERE id=?";
+        Integer id=materia.getId();
+        
+        try{
+            PreparedStatement ps=conexionBD.prepareStatement(query);
+            ps.setInt(1, id);
+            
+            ResultSet rs=ps.executeQuery();
+            
+            if(rs.next()){
+                 
+                materia.setNombre(rs.getString(1));
+                
+            }
+            
+            return materia;
+        }catch(SQLException e){
+            e.getMessage();
+            return materia;
         }
     }
 }
