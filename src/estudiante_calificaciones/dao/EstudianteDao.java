@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.sql.Statement;
 
 public class EstudianteDao {
  
@@ -130,7 +131,7 @@ public class EstudianteDao {
         try{
             Connection conexionBD=conexion.getConexion();
             String query="INSERT INTO estudiante (cedula,nombre,apellido,edad) VALUES(?,?,?,?)";
-            PreparedStatement ps=conexionBD.prepareStatement(query);
+            PreparedStatement ps=conexionBD.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             ps.setInt(1, estudiante.getCedula());
             ps.setString(2, estudiante.getNombre());
@@ -139,6 +140,12 @@ public class EstudianteDao {
             
             Integer filas=ps.executeUpdate();
             
+            if(filas==1){
+                ResultSet rs=ps.getGeneratedKeys(); //OBTENIENDO ID CREADO
+                if(rs.next()){
+                    return rs.getInt(1); //DEVOLVERA EL ID CREADO AL GENERAr EL REGISTRO
+                }
+            }
             return filas;
         }catch(SQLException e){
             e.getMessage();
