@@ -3,7 +3,7 @@ package estudiante_calificaciones.model;
 
 import java.time.LocalDate;
 
-public class Estudiante {
+public class Estudiantes {
     
     private Integer id;
     private Integer cedula;
@@ -12,14 +12,14 @@ public class Estudiante {
     private Integer edad;
     private LocalDate fechaCreacion;
 
-    public Estudiante() {
+    public Estudiantes() {
     }
 
-    public Estudiante(Integer id) {
+    public Estudiantes(Integer id) {
         this.id = id;
     }
 
-    public Estudiante(Integer id, Integer cedula, String nombre, String apellido, Integer edad, LocalDate fechaCreacion) {
+    public Estudiantes(Integer id, Integer cedula, String nombre, String apellido, Integer edad, LocalDate fechaCreacion) {
         this.id = id;
         this.cedula = cedula;
         this.nombre = nombre;
