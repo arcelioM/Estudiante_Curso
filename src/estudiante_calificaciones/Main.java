@@ -1,7 +1,7 @@
 package estudiante_calificaciones;
 
 
-public class Estudiante_Calificaciones {
+public class Main {
 
     
     public static void main(String[] args) {
