@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class EstudianteVista {
     
     Scanner sc = new Scanner(System.in);
-    private EstudianteDao estudianteDao= new EstudianteDao();
+    private final EstudianteDao estudianteDao= new EstudianteDao();
     
     public Integer crear(){
         System.out.println("Creacion de estudiante");
