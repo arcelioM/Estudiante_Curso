@@ -22,4 +22,12 @@ public class MateriasVista {
         
         System.out.println("Proceso terminado ..................");
     }
+    
+    public void listarPorId(Materias materia){
+        
+        System.out.println("Busqueda por ID \n");
+        System.out.println("Datos de materia: ");
+        materia=materiaDao.listById(materia);
+        System.out.println(materia);
+    }
 }
