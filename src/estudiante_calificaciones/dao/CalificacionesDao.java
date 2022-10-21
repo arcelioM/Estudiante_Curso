@@ -83,34 +83,37 @@ public class CalificacionesDao {
         
     }
     
-    public Calificaciones listByMateriaId(Calificaciones calificaciones){
+    public List<Calificaciones> listByEstudianteId(Calificaciones calificaciones){
         
         if(calificaciones==null || calificaciones.getMateriaId()==null || calificaciones.getMateriaId()<=0){
-            return calificaciones;
+            return null;
         }
 
         try{
             Connection conexionBD=conexion.getConexion();
-            String query="SELECT * FROM calificaciones WHERE materia_id=?";
+            String query="SELECT * FROM calificaciones WHERE estudiante_id=?";
             Integer materiaId=calificaciones.getMateriaId();
             PreparedStatement ps=conexionBD.prepareStatement(query);
             ps.setInt(1, materiaId);
             
+            List<Calificaciones> calificacionesAll= new ArrayList<>();
             ResultSet rs=ps.executeQuery();
             
-            if(rs.next()){
-         
-                calificaciones.setId(rs.getInt(1));
-                calificaciones.setNota(rs.getDouble(2));
-                calificaciones.setMateriaId(rs.getInt(3));
-                calificaciones.setEstudianteId(rs.getInt(4));
+            while(rs.next()){
                 
+                Calificaciones calificacion = new Calificaciones();
+                calificacion.setId(rs.getInt(1));
+                calificacion.setNota(rs.getDouble(2));
+                calificacion.setMateriaId(rs.getInt(3));
+                calificacion.setEstudianteId(rs.getInt(4));
+                
+                calificacionesAll.add(calificacion);
             }
             
-            return calificaciones;
+            return calificacionesAll;
         }catch(SQLException e){
             e.printStackTrace(System.out);
-            return calificaciones;
+            return null;
         }
     }
     
