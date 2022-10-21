@@ -2,6 +2,7 @@ package estudiante_calificaciones.vista;
 
 import estudiante_calificaciones.dao.EstudianteDao;
 import estudiante_calificaciones.model.Estudiantes;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,7 +12,7 @@ public class EstudianteVista {
     Scanner sc = new Scanner(System.in);
     private final EstudianteDao estudianteDao= new EstudianteDao();
     
-    public Integer crear(){
+    public Estudiantes crear(){
         System.out.println("Creacion de estudiante");
         System.out.println("------------------------------------------- \n \n");
         System.out.print("Cedula: ");
@@ -28,11 +29,22 @@ public class EstudianteVista {
         Integer edad=sc.nextInt();
         sc.nextLine();
         
+        LocalDate fechaCreacion=LocalDate.now();
         Estudiantes estudiante = new Estudiantes(cedula, nombre, apellido, edad);
-        
+        estudiante.setFechaCreacion(fechaCreacion);
         Integer idGenerado=estudianteDao.insert(estudiante);
         
-        return idGenerado;
+        if(idGenerado>0){
+            estudiante.setId(idGenerado);
+            System.out.println("Proceso terminado (Enter para continuear)...........");
+            sc.nextLine();
+            return estudiante;
+        }else{
+            System.out.println("Error de creacion");
+            System.out.println("Proceso terminado (Enter para continuear)...........");
+            sc.nextLine();
+            return null;
+        }
         
     }
     
@@ -94,10 +106,12 @@ public class EstudianteVista {
         
         Integer filas=estudianteDao.update(estudiante);
         
+        System.out.println("Proceso terminado (Enter para continuear)...........");
+        sc.nextLine();
         return filas;
     }
     
-    public void buscarPorCedula(){
+    public Estudiantes buscarPorCedula(){
         
         System.out.print("Escriba numero de cedula: ");
         Integer cedula=sc.nextInt();
@@ -105,10 +119,12 @@ public class EstudianteVista {
         
         Estudiantes estudiante= new Estudiantes();
         estudiante.setCedula(cedula);
-        estudiante = estudianteDao.listById(estudiante);
+        estudiante = estudianteDao.listByCedula(estudiante);
         
         System.out.println(estudiante);
-        System.out.println("Proceso terminado ...............");
+        System.out.println("Proceso terminado (Enter para continuear)...........");
+        sc.nextLine();
+        return estudiante;
     }
     
     public void buscarTodo(){
@@ -118,6 +134,7 @@ public class EstudianteVista {
         for(Estudiantes estudiante : estudiantes){
             System.out.println(estudiante);
         }
-        System.out.println("Proceso terminado ...............\n\n");
+        System.out.println("Proceso de listado terminado (Enter para continuear)...........");
+        sc.nextLine();
     }
 }
