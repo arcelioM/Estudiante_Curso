@@ -20,7 +20,8 @@ public class MateriasVista {
             System.out.println(materia);
         }
         
-        System.out.println("Proceso terminado ..................");
+        System.out.println("Proceso terminado (Enter para continuear)...........");
+        sc.nextLine();
     }
     
     public void listarPorId(Materias materia){
@@ -30,6 +31,8 @@ public class MateriasVista {
         materia=materiaDao.listById(materia);
         System.out.println(materia);
     
+        System.out.println("Proceso de listado terminado (Enter para continuear)...........");
+        sc.nextLine();
     }
     
     public Integer crear(){
@@ -67,6 +70,7 @@ public class MateriasVista {
             System.out.println("Fallo en actualizacion");
         }
         
-        System.out.println("Proceso de actualizacion terminada ...............");
+        System.out.println("Proceso de actualizacion terminado (Enter para continuear)...........");
+        sc.nextLine();
     }
 }
