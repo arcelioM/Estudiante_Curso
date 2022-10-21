@@ -8,7 +8,7 @@ public class Connections {
     private  final String USUARIO="root";
     private  final String CONTRASEÑA="holaCOMO";
     private  final String  HOST="localhost";
-    private  final String DB="matriculas";
+    private  final String DB="estudiante_curso";
     private  final String PUERTO="3306";
 
     public Connection getConexion(){
