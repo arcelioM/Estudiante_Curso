@@ -1,5 +1,9 @@
  package estudiante_calificaciones;
 
+import estudiante_calificaciones.model.Estudiantes;
+import estudiante_calificaciones.vista.CalificacionesVista;
+import estudiante_calificaciones.vista.EstudianteVista;
+import estudiante_calificaciones.vista.MateriasVista;
 import java.util.Scanner;
 
 
@@ -24,12 +28,47 @@ public class Main {
             
             seleccion = sc.nextInt();
             sc.nextLine();
-            Main.ejecutandoSeleccion(seleccion);
+            if(seleccion>0){
+                Main.ejecutandoSeleccion(seleccion);
+            }else{
+                System.out.println("Saliendo de sistema");
+            }
         }
     }
     
     public  static void ejecutandoSeleccion(Integer eleccion){
-        
+        CalificacionesVista calificacionesVista = new CalificacionesVista();
+        MateriasVista materiasVista = new MateriasVista();
+        EstudianteVista estudianteVista = new EstudianteVista();
+        switch(eleccion){
+            
+            case 1:
+                calificacionesVista.listarTodo();
+                break;
+            
+            case 2:
+                estudianteVista.buscarTodo();
+                System.out.print("Escriba numero de cedula de estudiante: ");
+                Integer cedula = sc.nextInt();
+                calificacionesVista.listarCalificacionPorId(cedula);
+                break;
+            case 3:
+                System.out.println("Desea ver estudiante disponible (1 - si | 0 - no)");
+                Integer eleccionVer=sc.nextInt();
+                sc.nextLine();
+                if(eleccionVer==1){
+                   estudianteVista.buscarTodo(); 
+                }
+                
+                System.out.print("Escriba numero de cedula de estudiantee: ");
+                Integer cedulaBusq=sc.nextInt();
+                sc.nextLine();
+                
+                Estudiantes estudiante = new Estudiantes();
+                estudiante.setCedula(cedulaBusq);
+                calificacionesVista.ingresarCalificaciones(estudiante);
+                
+        }
     }
     
 }
