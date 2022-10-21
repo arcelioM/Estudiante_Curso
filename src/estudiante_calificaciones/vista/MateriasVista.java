@@ -43,4 +43,29 @@ public class MateriasVista {
  
        return materiaDao.insert(materia);
     } 
+    
+    public void actualizar(){
+        System.out.println("Actualizar materia \n");
+        System.out.print("Escriba ID: ");
+        Integer id=sc.nextInt();
+        
+        Materias materia = new Materias(id);
+        materia=materiaDao.listById(materia);
+        
+        System.out.println("Datos actuales");
+        System.out.println(materia);
+        
+        System.out.print("Escriba nuevo nombre: ");
+        String nombre=sc.nextLine();
+        materia.setNombre(nombre);
+        
+        Integer fila=materiaDao.update(materia);
+        if(fila==1){
+            System.out.println("Actualizacion correcta");
+        }else{
+            System.out.println("Fallo en actualizacion");
+        }
+        
+        System.out.println("Proceso de actualizacion terminada ...............");
+    }
 }
