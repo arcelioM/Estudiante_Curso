@@ -29,5 +29,18 @@ public class MateriasVista {
         System.out.println("Datos de materia: ");
         materia=materiaDao.listById(materia);
         System.out.println(materia);
+    
     }
+    
+    public Integer crear(){
+        
+        System.out.println("Nueva Materia");
+        System.out.print("Nombre: ");
+        String nombre=sc.nextLine();
+        
+        Materias materia= new Materias();
+        materia.setNombre(nombre);
+ 
+       return materiaDao.insert(materia);
+    } 
 }
