@@ -69,5 +69,47 @@ public class CalificacionesVista {
 
     }
     
+    public void ingresarCalificaciones(Estudiantes estudiante){
+        
+        System.out.println("Agregando notas \n\n");
+        System.out.println("O - salir");
+        
+        List<Materias> materiasDisponibles = materiaDao.listAll();
+        for(Materias materia : materiasDisponibles){
+            System.out.println(materia.getId() + " - "+materia.getNombre());
+        }
+        
+        Integer eleccion = 1;
+        
+        while(eleccion>0){
+            System.out.println("Escriba codigo de materia, para ingresar nota: ");
+            eleccion = sc.nextInt();
+            sc.nextLine();
+            
+            System.out.println("Escriba valor de nota: ");
+            Double nota=sc.nextDouble();
+            sc.nextLine();
+            
+            if(eleccion>0){
+                Calificaciones calificacion = new Calificaciones();
+                calificacion.setEstudianteId(estudiante.getId());
+                calificacion.setMateriaId(eleccion);
+                calificacion.setNota(nota);
+                Integer fila = calificacionesDao.insert(calificacion);
+                
+                
+                if(fila==1){
+                    System.out.println("Nota registrada con exitosamente");
+                }else{
+                    System.out.println("Fallo en registro de nota");
+                }
+            }else{
+                System.out.println("Saliendo");
+            }
+
+        }
+        
+    }
+    
     
 }
