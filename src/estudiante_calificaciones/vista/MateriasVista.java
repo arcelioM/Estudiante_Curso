@@ -48,6 +48,7 @@ public class MateriasVista {
         System.out.println("Actualizar materia \n");
         System.out.print("Escriba ID: ");
         Integer id=sc.nextInt();
+        sc.nextLine();
         
         Materias materia = new Materias(id);
         materia=materiaDao.listById(materia);

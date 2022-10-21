@@ -26,12 +26,13 @@ public class EstudianteVista {
         
         System.out.print("Edad: ");
         Integer edad=sc.nextInt();
+        sc.nextLine();
         
         Estudiantes estudiante = new Estudiantes(cedula, nombre, apellido, edad);
         
-        Integer fila=estudianteDao.insert(estudiante);
+        Integer idGenerado=estudianteDao.insert(estudiante);
         
-        return fila;
+        return idGenerado;
         
     }
     
@@ -53,6 +54,7 @@ public class EstudianteVista {
         while (seleccion>0) { 
             System.out.println("Escriba el numero del dato que desea actualizar (0 para salir)..... \n\n");
             seleccion=sc.nextInt();
+            sc.nextLine();
             
             switch (seleccion) {
                 
