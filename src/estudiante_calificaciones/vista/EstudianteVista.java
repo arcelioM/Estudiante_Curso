@@ -82,6 +82,7 @@ public class EstudianteVista {
                     System.out.print("Edad: ");
                     Integer edad=sc.nextInt();
                     sc.nextLine();
+                    estudiante.setEdad(edad);
                     break;
                 default:
                     System.out.println("Opcion no valida");
@@ -91,5 +92,19 @@ public class EstudianteVista {
         Integer filas=estudianteDao.update(estudiante);
         
         return filas;
+    }
+    
+    public void buscarPorCedula(){
+        
+        System.out.print("Escriba numero de cedula: ");
+        Integer cedula=sc.nextInt();
+        sc.nextLine();
+        
+        Estudiantes estudiante= new Estudiantes();
+        estudiante.setCedula(cedula);
+        estudiante = estudianteDao.listById(estudiante);
+        
+        System.out.println(estudiante);
+        System.out.println("Proceso terminado ...............");
     }
 }
