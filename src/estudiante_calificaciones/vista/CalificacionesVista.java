@@ -82,7 +82,7 @@ public class CalificacionesVista {
         Integer eleccion = 1;
         
         while(eleccion>0){
-            System.out.println("Escriba codigo de materia, para ingresar nota: ");
+            System.out.println("Escriba codigo de materia, para ingresar nota (O para salir) : ");
             eleccion = sc.nextInt();
             sc.nextLine();
             
@@ -111,5 +111,49 @@ public class CalificacionesVista {
         
     }
     
-    
+    public void actualizarNota(Estudiantes estudiante){
+        
+        Calificaciones calif = new Calificaciones();
+        calif.setEstudianteId(estudiante.getId());
+        List<Calificaciones> calificaciones= calificacionesDao.listByEstudianteId(calif);
+        
+        for(Calificaciones calificacion : calificaciones){
+
+            Materias materia = new Materias(calificacion.getMateriaId());
+            materia= materiaDao.listById(materia);
+
+            System.out.println("Codigo de nota: "+calificacion.getId()+ " - Materia: "+materia.getNombre() + "Nota: "+calificacion.getNota());
+        }
+        
+        Integer agregarNota=1;
+        
+        while(agregarNota==1){
+            System.out.print("Escriba el codigo de la nota a actualizar: ");
+            Integer codigo=sc.nextInt();
+            sc.nextLine();
+
+            System.out.print("Escriba el nuevo valor de la nota: ");
+            Double nota=sc.nextDouble();
+            sc.nextLine();
+            
+            Calificaciones calificacionNueva = new Calificaciones(codigo);
+            calificacionNueva=calificacionesDao.listById(calificacionNueva);
+            calificacionNueva.setNota(nota);
+            Integer fila = calificacionesDao.update(calificacionNueva);
+            if(fila==1){
+                System.out.println("Nota actualizada correctamente");
+            }else{
+                System.out.println("Error en actualizacion");
+            }
+            
+            System.out.println("Desea agregar otra nota");
+            System.out.println(" 1 - si | 0 - No");
+            
+            agregarNota=sc.nextInt();
+            sc.nextLine();
+        }
+        
+        System.out.println("Proceso terminado ..............");
+        
+    }
 }
