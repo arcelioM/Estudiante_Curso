@@ -85,16 +85,16 @@ public class CalificacionesDao {
     
     public List<Calificaciones> listByEstudianteId(Calificaciones calificaciones){
         
-        if(calificaciones==null || calificaciones.getMateriaId()==null || calificaciones.getMateriaId()<=0){
+        if(calificaciones==null || calificaciones.getEstudianteId()==null || calificaciones.getEstudianteId()<=0){
             return null;
         }
 
         try{
             Connection conexionBD=conexion.getConexion();
             String query="SELECT * FROM calificaciones WHERE estudiante_id=?";
-            Integer materiaId=calificaciones.getMateriaId();
+            Integer estudianteId=calificaciones.getEstudianteId();
             PreparedStatement ps=conexionBD.prepareStatement(query);
-            ps.setInt(1, materiaId);
+            ps.setInt(1, estudianteId);
             
             List<Calificaciones> calificacionesAll= new ArrayList<>();
             ResultSet rs=ps.executeQuery();

@@ -130,14 +130,14 @@ public class EstudianteDao {
         
         try{
             Connection conexionBD=conexion.getConexion();
-            String query="INSERT INTO estudiante (cedula,nombre,apellido,edad) VALUES(?,?,?,?)";
+            String query="INSERT INTO estudiante (cedula,nombre,apellido,edad,fechaCreacion) VALUES(?,?,?,?,?)";
             PreparedStatement ps=conexionBD.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             
             ps.setInt(1, estudiante.getCedula());
             ps.setString(2, estudiante.getNombre());
             ps.setString(3, estudiante.getApellido());
             ps.setInt(4, estudiante.getEdad());
-            
+            ps.setString(5, estudiante.getFechaCreacion()+"");
             Integer filas=ps.executeUpdate();
             
             if(filas==1){
@@ -148,7 +148,7 @@ public class EstudianteDao {
             }
             return filas;
         }catch(SQLException e){
-            e.getMessage();
+            e.printStackTrace(System.out);
             return 0;
         }
     }
