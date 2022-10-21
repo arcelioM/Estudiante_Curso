@@ -44,5 +44,30 @@ public class CalificacionesVista {
         System.out.println("Proceso de listado terminado...........");
     }
     
+    public void listarCalificacionPorId(Integer cedula){
+        
+        System.out.println("Listado de calificaciones \n");
+        
+        Estudiantes estudiante  = new Estudiantes();
+        estudiante.setCedula(cedula);
+        
+        estudiante = estudianteDao.listByCedula(estudiante);
+        
+        System.out.println(estudiante);
+        System.out.println("Calificaciones registrads: ");
+        Calificaciones calif= new Calificaciones();
+        calif.setEstudianteId(estudiante.getId());
+        List<Calificaciones> calificaciones= calificacionesDao.listByEstudianteId(calif);
+
+        for(Calificaciones calificacion : calificaciones){
+
+            Materias materia = new Materias(calificacion.getMateriaId());
+            materia= materiaDao.listById(materia);
+
+            System.out.println("Materia: "+materia.getNombre() + "Nota: "+calificacion.getNota());
+        }   
+
+    }
+    
     
 }
