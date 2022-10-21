@@ -2,6 +2,7 @@ package estudiante_calificaciones.vista;
 
 import estudiante_calificaciones.dao.EstudianteDao;
 import estudiante_calificaciones.model.Estudiantes;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -106,5 +107,15 @@ public class EstudianteVista {
         
         System.out.println(estudiante);
         System.out.println("Proceso terminado ...............");
+    }
+    
+    public void buscarTodo(){
+        
+        List<Estudiantes> estudiantes = estudianteDao.listAll();
+        
+        for(Estudiantes estudiante : estudiantes){
+            System.out.println(estudiante);
+        }
+        System.out.println("Proceso terminado ...............\n\n");
     }
 }
